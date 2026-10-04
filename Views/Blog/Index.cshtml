@@ -1,0 +1,44 @@
+@model IEnumerable<MyBlog.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "Blog Yazıları";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Son Blog Yazıları</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            Henüz hiç blog yazısı eklenmemiş.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">@item.Title</h3>
+                            <p class="text-muted small">
+                                <i class="bi bi-calendar"></i> @item.CreatedDate.ToString("dd MMMM yyyy")
+                            </p>
+                            <p class="card-text">
+                                @(string.IsNullOrEmpty(item.Summary) 
+                                    ? (item.Content.Length > 150 ? item.Content.Substring(0, 150) + "..." : item.Content) 
+                                    : item.Summary)
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-3">
+                            <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                Devamını Oku &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

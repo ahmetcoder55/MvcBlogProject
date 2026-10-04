@@ -1,0 +1,28 @@
+@model MyBlog.Models.BlogPost
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-5">
+    <article class="col-lg-8 mx-auto">
+        <header class="mb-4">
+            <h1 class="fw-bolder mb-1">@Model.Title</h1>
+            <div class="text-muted fst-italic mb-2">
+                Yayınlanma Tarihi: @Model.CreatedDate.ToString("dd MMMM yyyy HH:mm")
+            </div>
+        </header>
+
+        <hr />
+
+        <section class="mb-5 fs-5" style="white-space: pre-line;">
+            @Model.Content
+        </section>
+
+        <footer class="pt-3 border-top">
+            <a asp-controller="Blog" asp-action="Index" class="btn btn-outline-secondary">
+                &larr; Tüm Yazılara Dön
+            </a>
+        </footer>
+    </article>
+</div>
